@@ -11,7 +11,7 @@ const Card = ({ name, tag, discount, image, price, weight }) => {
     const discountedPrice = price - (price * discount) / 100;
 
     return (
-        <div 
+        <div
             className="group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => {
@@ -35,8 +35,8 @@ const Card = ({ name, tag, discount, image, price, weight }) => {
 
             {/* Image */}
             <div className="relative overflow-hidden rounded-t-2xl aspect-square">
-                <img 
-                    src={image} 
+                <img
+                    src={image}
                     alt={name}
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                 />

@@ -3,12 +3,12 @@ import { ArrowRight, Leaf, Shield, Truck } from 'lucide-react';
 import almonds from './almonds.png'
 const Hero = () => {
     return (
-        <section className="relative min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+        <section className="relative min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden px-0 md:px-10">
             {/* Background Pattern */}
             <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] bg-[length:20px_20px]" />
 
             {/* Main Content */}
-            <div className="relative container mx-auto px-4 pt-24 pb-16 sm:pt-32 lg:pt-4">
+            <div className="relative container mx-auto px-4 pt-6 md:pt-24 pb-16 sm:pt-32 lg:pt-4">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     {/* Left Column - Content */}
                     <div className="space-y-8">
@@ -80,7 +80,7 @@ const Hero = () => {
                         </div>
 
                         {/* Floating Elements */}
-                        <div className="absolute top-8 -right-4 z-20 bg-white p-6 rounded-2xl shadow-xl transform rotate-6 animate-float">
+                        <div className="hidden md:flex absolute top-8 -right-4 z-20 bg-white p-6 rounded-2xl shadow-xl transform rotate-6 animate-float">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
                                     <span className="text-2xl">🌟</span>
@@ -92,7 +92,7 @@ const Hero = () => {
                             </div>
                         </div>
 
-                        <div className="absolute -bottom-4 -left-4 z-20 bg-white p-6 rounded-2xl shadow-xl transform -rotate-6 animate-float-delayed">
+                        <div className="hidden md:flex absolute -bottom-4 -left-4 z-20 bg-white p-6 rounded-2xl shadow-xl transform -rotate-6 animate-float-delayed">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
                                     <span className="text-2xl">🥜</span>
