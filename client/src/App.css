@@ -71,3 +71,7 @@ html,body{
     max-width: 1560px;
     margin: 0 auto;
 }
+
+.swiper{
+  width: 100%;
+}

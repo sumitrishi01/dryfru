@@ -72,7 +72,7 @@ const Header = () => {
       </div>
 
       {/* Main Header */}
-      <header className={`bg-white border transition-all duration-300 ${
+      <header className={`bg-white border transition-all duration-300 px-0 md:px-10 ${
         scrolled ? 'shadow-lg' : ''
       }`}>
         <div className="container mx-auto px-4">
