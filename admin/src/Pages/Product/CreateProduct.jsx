@@ -155,7 +155,7 @@ const CreateProduct = () => {
 
 
         try {
-            const data = await axios.post('http://localhost:3000/api/v1/add-new-product', formDataObject, {
+            const data = await axios.post('http://localhost:7400/api/v1/add-new-product', formDataObject, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -338,7 +338,7 @@ const CreateProduct = () => {
                                 label="Stock"
                                 type="text"
                                 name="stock"
-                                readonly={true}
+                               
                                 value={formData.stock}
                                 onChange={handleInputChange}
                             />

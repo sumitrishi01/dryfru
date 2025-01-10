@@ -165,3 +165,117 @@ exports.deleteProductById = async (req, res) => {
         });
     }
 }
+
+exports.updateProduct = async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const updateFields = {};
+
+        const {
+            product_name,
+            product_description,
+            isVarient,
+            price,
+            discount,
+            afterDiscountPrice,
+            stock,
+            Varient,
+            category,
+            extra_description,
+            tag,
+            isShowOnHomeScreen,
+        } = req.body;
+
+        // Dynamically add only updated fields
+        if (product_name !== undefined) updateFields.product_name = product_name;
+        if (product_description !== undefined) updateFields.product_description = product_description;
+        if (price !== undefined) updateFields.price = price;
+        if (discount !== undefined) updateFields.discount = discount;
+        if (afterDiscountPrice !== undefined) updateFields.afterDiscountPrice = afterDiscountPrice;
+        if (stock !== undefined) updateFields.stock = stock;
+        if (category !== undefined) updateFields.category = category;
+        if (extra_description !== undefined) updateFields.extra_description = extra_description;
+        if (tag !== undefined) updateFields.tag = tag;
+
+        if (isVarient !== undefined) {
+            updateFields.isVarient = JSON.parse(isVarient);
+        }
+        if (Varient !== undefined) {
+            updateFields.Varient = JSON.parse(Varient || "[]");
+        }
+        if (isShowOnHomeScreen !== undefined) {
+            updateFields.isShowOnHomeScreen = JSON.parse(isShowOnHomeScreen);
+        }
+
+        // Handle file uploads
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+                const result = await uploadBufferToCloudinary(file.buffer, file.originalname);
+
+                switch (file.fieldname) {
+                    case "ProductMainImage":
+                        updateFields.ProductMainImage = {
+                            public_id: result.public_id,
+                            url: result.secure_url,
+                        };
+                        break;
+                    case "SecondImage":
+                        updateFields.SecondImage = {
+                            public_id: result.public_id,
+                            url: result.secure_url,
+                        };
+                        break;
+                    case "ThirdImage":
+                        updateFields.ThirdImage = {
+                            public_id: result.public_id,
+                            url: result.secure_url,
+                        };
+                        break;
+                    case "FourthImage":
+                        updateFields.FourthImage = {
+                            public_id: result.public_id,
+                            url: result.secure_url,
+                        };
+                        break;
+                    case "FifthImage":
+                        updateFields.FifthImage = {
+                            public_id: result.public_id,
+                            url: result.secure_url,
+                        };
+                        break;
+                    default:
+                        // Ignore unknown fields
+                        break;
+                }
+            }
+        }
+
+        // Update product in the database
+        const updatedProduct = await ProductModel.findByIdAndUpdate(
+            productId,
+            { $set: updateFields },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedProduct) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Product updated successfully",
+            product: updatedProduct,
+        });
+    } catch (error) {
+        console.error("Error updating product:", error);
+        res.status(500).json({
+            success: false,
+            message: "Error updating product",
+            error: error.message,
+        });
+    }
+};
+

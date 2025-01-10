@@ -8,7 +8,7 @@ const ConnectDB = require('./database/database.config');
 const  route  = require('./routes/routes');
 const setupBullBoard = require('./bullboard');
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 // Middleware
 app.use(cors());

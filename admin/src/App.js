@@ -6,10 +6,10 @@ import DashboardPage from './Pages/Dashboard/DashboardPage'
 import CreateProduct from './Pages/Product/CreateProduct'
 import Products from './Pages/Product/Products'
 import EditProduct from './Pages/Product/EditProduct'
+import AllUsers from './Pages/Users/AllUsers'
 
 
 const Banners = () => <div>Banners Page</div>
-const Users = () => <div>Users Page</div>
 const Orders = () => <div>Orders Page</div>
 const Reports = () => <div>Reports Page</div>
 const Support = () => <div>Support Page</div>
@@ -25,7 +25,7 @@ function App() {
           <Route path="/products/create" element={<CreateProduct />} />
           <Route path="/products/edit/:id" element={<EditProduct />} />
           <Route path="banners" element={<Banners />} />
-          <Route path="users" element={<Users />} />
+          <Route path="users" element={<AllUsers />} />
           <Route path="orders" element={<Orders />} />
           <Route path="reports" element={<Reports />} />
           <Route path="support" element={<Support />} />

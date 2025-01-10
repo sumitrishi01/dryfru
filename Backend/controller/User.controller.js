@@ -385,4 +385,70 @@ exports.PasswordChangeRequest = async (req, res) => {
     }
 };
 
+exports.getAllUsers = async (req, res) => {
+    try {
+        const { page = 1, search = '', startDate, endDate, isVerified } = req.query;
 
+    
+        let query = {};
+
+      
+        if (search) {
+            const numericSearch = Number(search); 
+            if (!isNaN(numericSearch)) {
+             
+                query.ContactNumber = numericSearch;
+            } else {
+            
+                query = {
+                    ...query,
+                    $or: [
+                        { Name: { $regex: search, $options: 'i' } },
+                        { Email: { $regex: search, $options: 'i' } },
+                    ],
+                };
+            }
+        }
+
+        if (startDate && endDate) {
+            query = {
+                ...query,
+                createdAt: { $gte: new Date(startDate), $lte: new Date(endDate) },
+            };
+        }
+
+        if (isVerified !== undefined) {
+            query = {
+                ...query,
+                isMobileVerifed: JSON.parse(isVerified),
+            };
+        }
+
+        const limit = 10;
+        const skip = (page - 1) * limit; 
+
+        const users = await User.find(query)
+            .select('-Password -OtpForVerification -OtpGeneratedAt')
+            .skip(skip)
+            .limit(limit)
+            .sort({ createdAt: -1 }); 
+
+   
+        const totalUsers = await User.countDocuments(query);
+
+        return res.status(200).json({
+            success: true,
+            message: 'Users fetched successfully.',
+            data: users,
+            total: totalUsers, 
+            totalPages: Math.ceil(totalUsers / limit), 
+        });
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        return res.status(500).json({
+            success: false,
+            error: error.message,
+            message: 'Internal Server Error. Please try again later.',
+        });
+    }
+};
